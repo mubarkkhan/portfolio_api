@@ -37,6 +37,10 @@ connectMySQL().then(() => {
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.get('/', (req, res) => {
+    res.send({message: 'server start', status: true})
+})
+
 server.listen(process.env.PORT, () => {
     try {
         console.log(`http://${process.env.HOSTNAME}:${process.env.PORT} running successfull`)
