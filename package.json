@@ -9,6 +9,9 @@
     "author": "Mubark Khan",
     "license": "ISC",
     "description": "",
+    "engines": {
+    "node": "20.x"
+    },
     "dependencies": {
       "body-parser": "^1.20.3",
       "cors": "^2.8.5",
