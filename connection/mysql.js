@@ -15,7 +15,7 @@ async function connectMySQL() {
         reject(err);
         return;
       } else {
-        resolve;
+        resolve(connection);
       }
     });
   });
