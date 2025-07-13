@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const { connectMySQL } = require('./connection/mysql')
-const dotenv = require('dotenv').config();
 const admin = require('./router/admin')
 const user = require('./router/user')
 const bodyparser = require('body-parser')
@@ -10,6 +10,7 @@ const { Server } = require('socket.io');
 const http = require("http");
 const handleSocket = require('./contoller/socket');
 const path = require('path');
+const PORT = process.env.PORT || 4000;
 
 app.use(bodyparser.urlencoded({extended : false}))
 app.use(bodyparser.json())
@@ -41,9 +42,9 @@ app.get('/', (req, res) => {
     res.send({message: 'server start', status: true})
 })
 
-server.listen(process.env.PORT, () => {
+server.listen(PORT, () => {
     try {
-        console.log(`http://${process.env.HOSTNAME}:${process.env.PORT} running successfull`)
+        console.log(`Server running successfully on port ${PORT}`);
     }
     catch (e) {
         console.log(e,'error')

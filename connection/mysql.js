@@ -11,10 +11,12 @@ async function connectMySQL() {
   });
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
-      if (err) {
+        if (err) {
+          console.error('DB connection failed:', err);
         reject(err);
         return;
-      } else {
+        } else {
+            console.log('DB connected successfully');
         resolve(connection);
       }
     });
