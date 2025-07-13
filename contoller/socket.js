@@ -37,29 +37,30 @@ const handleSocket = (io) => {
         });
       }
     });
-    // socket.on("joinRoom", ({ room, clientId, name, admin }) => {
-    //   socket.join(room);
+    socket.on("joinRoom", ({ room, clientId, name, email, admin }) => {
+      socket.join(room);
     
-    //   if (admin) {
-    //     console.log("Admin joined room:", room);
-    //   } else {
-    //     clients[clientId] = { socketId: socket.id, name, room };
-    //     console.log(`${name} (${clientId}) joined room ${room}`);
-    //   }
-    //   socket.to(room).emit('joinmsg', { message: `User ${socket.id} has joined the room`,clientId: clientId, time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})})
-    //   socket.emit('joinmsg', {message: 'Welcome to the room!', clientId: clientId, time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})})
+      if (admin) {
+        console.log("Admin joined room:", room);
+      } else {
+        clients[clientId] = { socketId: socket.id, name, email, room };
+        console.log(`${name} (${clientId}) joined room ${room}`);
+      }
+      socket.to(room).emit('joinmsg', { message: `${name} has joined the room`,clientId: clientId, name, time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})})
+      socket.emit('joinmsg', {message: 'Welcome to the room!', clientId: clientId, name, time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})})
       
       
-    // });
-    // socket.on('sendRoomMsg', (data) => {
-    //   const { message, time, clientId, room } = data;
-    //   console.log(data,'data')
-    //   socket.to(room).emit('recieveRoomMsg', {
-    //     message,
-    //     time,
-    //     clientId,
-    //   });
-    // });
+    });
+    socket.on('sendRoomMsg', (data) => {
+      const { message, time, clientId, room, name } = data;
+      console.log(data,'data')
+      socket.to(room).emit('recieveRoomMsg', {
+        message,
+        time,
+        name,
+        clientId,
+      });
+    });
     // socket.on("adminGroupMessage", ({ room, message }) => {
     //   socket.to(room).emit("recieve", {
     //     from: "admin",
