@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
     res.send({message: 'server start', status: true})
 })
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
     console.log(`🚀 Server running on port ${PORT}`);
     const db = await connectMySQL();
 
