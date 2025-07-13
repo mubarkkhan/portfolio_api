@@ -9,11 +9,11 @@ async function connectMySQL() {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
   });
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     connection.connect((err) => {
         if (err) {
           console.error('DB connection failed:', err);
-        reject(err);
+        resolve(null);
         return;
         } else {
             console.log('DB connected successfully');

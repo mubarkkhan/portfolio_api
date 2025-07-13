@@ -32,24 +32,20 @@ const io = new Server(server, {
 handleSocket(io)
 app.set('io', io)
 
-connectMySQL().then(() => {
-    console.log('connect to mysql');
-}).catch((err) => { console.log(err, 'error'); });
-
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', (req, res) => {
     res.send({message: 'server start', status: true})
 })
 
-server.listen(PORT, () => {
-    try {
-        console.log(`Server running successfully on port ${PORT}`);
+app.listen(PORT, async () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    const db = await connectMySQL();
+
+    if (!db) {
+        console.log('⚠️ DB not connected. Some routes depending on DB might not work.');
     }
-    catch (e) {
-        console.log(e,'error')
-    }
-})
+});
 
 io.on('connection', (socket) => {
     console.log('User connected');
