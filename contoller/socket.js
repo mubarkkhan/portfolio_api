@@ -46,6 +46,8 @@ const handleSocket = (io) => {
         clients[clientId] = { socketId: socket.id, name, email, room };
         console.log(`${name} (${clientId}) joined room ${room}`);
       }
+        const usersInRoom = Object.values(clients).filter(user => user.room === room);
+      io.to(room).emit('updateOnlineUsers', usersInRoom)
       socket.to(room).emit('joinmsg', { message: `${name} has joined the room`,clientId: clientId, name, time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})})
       socket.emit('joinmsg', {message: 'Welcome to the room!', clientId: clientId, name, time: new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})})
       
