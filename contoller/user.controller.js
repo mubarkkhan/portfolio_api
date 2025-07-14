@@ -34,7 +34,7 @@ module.exports.handleEmailSending = (req, res) => {
       service: "gmail",
       auth: {
         user: "mubark001418@gmail.com",
-        pass: "hdvr bqse ysxr jxfw",
+        pass: "qmdy iirc gqzn buts",
       },
     });
     const mailOptions = {
